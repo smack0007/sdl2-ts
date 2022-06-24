@@ -17,6 +17,8 @@ export class PlatformPointer<T> implements PointerInternal<T> {
     pointer: Deno.UnsafePointer | bigint,
     constructorOrValue: (new (pointer: PlatformPointer<T>) => T) | T | null = null,
   ) {
+    console.info("PlatformPointer.constructor", pointer);
+
     if (typeof pointer === "bigint") {
       pointer = new Deno.UnsafePointer(pointer);
     }

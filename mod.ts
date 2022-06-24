@@ -18,9 +18,11 @@ export const SDL = {
   ...SDL_structs,
 };
 
+export * from "./src/boxedArray.ts";
 export * from "./src/boxedValue.ts";
 export * from "./src/memory.ts";
 export * from "./src/pointer.ts";
+export * from "./src/structs.ts";
 
 import type {
   BlitMap,
@@ -36,19 +38,9 @@ import type {
   Window,
 } from "./src/SDL/structs.ts";
 
-import type {
-  AllocatableStruct,
-  AllocatableStructConstructor,
-  Constructor,
-  PrimitiveType,
-  RWMode,
-  Struct,
-  TypedArray,
-} from "./src/types.ts";
+import type { Constructor, PrimitiveType, RWMode, TypedArray } from "./src/types.ts";
 
 export type {
-  AllocatableStruct,
-  AllocatableStructConstructor,
   BlitMap,
   Constructor,
   Keysym,
@@ -60,7 +52,6 @@ export type {
   RendererInfo,
   RWMode,
   RWops,
-  Struct,
   Surface,
   Texture,
   TypedArray,

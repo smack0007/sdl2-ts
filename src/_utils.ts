@@ -2,8 +2,8 @@
 // exposed as part of the API.
 
 import { PlatformDataView } from "platform";
-import { BoxableValueConstructor, F32, F64, I16, I32, I64, I8, Int, U16, U32, U64, U8 } from "./types.ts";
-import { Window } from "./SDL/structs.ts";
+import { F32, F64, I16, I32, I64, I8, Int, U16, U32, U64, U8 } from "./types.ts";
+import { BoxableValueConstructor } from "./_boxedValue.ts";
 
 //
 // Constants
@@ -32,9 +32,6 @@ export const DATA_VIEW_METHODS = new Map<BoxableValueConstructor, keyof Platform
   [F64, "getFloat64"],
 
   [Number, "getInt32"],
-
-  // TODO: Just hardcode this for now.
-  [Window, "getBigUint64"],
 ]);
 
 //
@@ -47,8 +44,14 @@ export type Writeable<T> = { -readonly [P in keyof T]: T[P] };
 // Functions
 //
 
-export function sizeof<T>(constructor: BoxableValueConstructor): number {
-  switch (constructor) {
+export function sizeof(_constructor: BoxableValueConstructor): number {
+  // TODO: Put this SIZE_IN_BYTES into a type.
+  const sizeInBytes = _constructor as unknown as { SIZE_IN_BYTES: number };
+  if (sizeInBytes.SIZE_IN_BYTES !== undefined) {
+    return sizeInBytes.SIZE_IN_BYTES;
+  }
+
+  switch (_constructor) {
     case I8:
     case U8:
       return 1;
@@ -68,14 +71,9 @@ export function sizeof<T>(constructor: BoxableValueConstructor): number {
     case U64:
     case F64:
       return 8;
-
-    // TODO: Just hardcode this for now.
-
-    case Window:
-      return 8;
   }
 
   throw new Error(
-    `sizeof not implemented for ${(constructor as NumberConstructor)?.name ?? (constructor as symbol).description}`,
+    `sizeof not implemented for ${(_constructor as NumberConstructor)?.name ?? (_constructor as symbol).description}`,
   );
 }

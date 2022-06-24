@@ -1,8 +1,6 @@
 // This file is for types exposed as part of the API.
 
-// deno-lint-ignore-file no-empty-enum no-empty-interface
-
-// Simple types
+// deno-lint-ignore-file no-empty-enum
 
 export type Constructor<T> = (...args: unknown[]) => T;
 
@@ -55,16 +53,5 @@ export type TypedArray =
   | BigInt64Array
   | BigUint64Array;
 
-// Complex types
-
-export type AllocatableStructConstructor<T extends AllocatableStruct> = {
-  new (data: Uint8Array): T;
-  SIZE_IN_BYTES: number;
-};
-
-export interface AllocatableStruct extends Struct {}
-
 // TODO: Move this to it's own file as it's not generic.
 export type RWMode = "a" | "a+" | "r" | "r+" | "w" | "w+" | "ab" | "ab+" | "rb" | "rb+" | "wb" | "wb+";
-
-export interface Struct {}

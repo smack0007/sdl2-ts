@@ -224,15 +224,20 @@ async function writeStructs(): Promise<void> {
   lines.push("");
 
   lines.push(`import { fromPlatformString, PlatformPointer, PlatformDataView } from "platform";`);
+
   lines.push(`import { Pointer } from "../pointer.ts";`);
+  lines.push(`import { AllocatableStruct, Struct } from "../structs.ts";`);
   lines.push(
-    `import { AllocatableStruct, f32, f64, i16, i32, i64, i8, Struct, u16, u32, u64, u8 } from "../types.ts";`,
+    `import { f32, f64, i16, i32, i64, i8, u16, u32, u64, u8 } from "../types.ts";`,
   );
   lines.push("");
 
   for (const structName of opaqueStructs) {
     const className = shortenName(structName);
-    lines.push(`export class ${className} implements Struct {}`);
+    lines.push(`export class ${className} implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+`);
   }
 
   lines.push("");
@@ -576,7 +581,7 @@ async function writeFunctions(): Promise<void> {
   lines.push(`import { ${structNames} } from "./structs.ts";`);
   lines.push(`import { Symbols, symbols } from "./_symbols.ts";`);
   lines.push(`import { f32, f64, i16, i32, i64, i8, RWMode, TypedArray, u16, u32, u64, u8 } from "../types.ts";`);
-  lines.push(`import { Pointer } from "../types.ts";`);
+  lines.push(`import { Pointer } from "../pointer.ts";`);
   lines.push("");
 
   lines.push(`interface SDLContext {
@@ -743,9 +748,11 @@ async function writeMod(): Promise<void> {
     lines.push("");
   }
 
+  lines.push(`export * from "./src/boxedArray.ts";`);
   lines.push(`export * from "./src/boxedValue.ts";`);
   lines.push(`export * from "./src/memory.ts";`);
   lines.push(`export * from "./src/pointer.ts";`);
+  lines.push(`export * from "./src/structs.ts";`);
   lines.push("");
 
   const typesToExport: string[] = [];

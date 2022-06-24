@@ -19,7 +19,7 @@ import {
 } from "./structs.ts";
 import { Symbols, symbols } from "./_symbols.ts";
 import { f32, f64, i16, i32, i64, i8, RWMode, TypedArray, u16, u32, u64, u8 } from "../types.ts";
-import { Pointer } from "../types.ts";
+import { Pointer } from "../pointer.ts";
 
 interface SDLContext {
   library: Deno.DynamicLibrary<Symbols>;
@@ -183,8 +183,12 @@ export function CreateWindowAndRenderer(
     rendererDoublePointer,
   ) as i32;
 
+  console.info(new PlatformPointer(windowDoublePointer[0]));
+
   (window as PlatformPointer<Pointer<Window>>).setValue(new PlatformPointer(windowDoublePointer[0]));
   (renderer as PlatformPointer<Pointer<Renderer>>).setValue(new PlatformPointer(rendererDoublePointer[0]));
+
+  console.info("CreateWindowAndRenderer", window);
 
   return result;
 }

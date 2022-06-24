@@ -4,14 +4,32 @@
 
 import { fromPlatformString, PlatformDataView, PlatformPointer } from "platform";
 import { Pointer } from "../pointer.ts";
-import { AllocatableStruct, f32, f64, i16, i32, i64, i8, Struct, u16, u32, u64, u8 } from "../types.ts";
+import { AllocatableStruct, Struct } from "../structs.ts";
+import { f32, f64, i16, i32, i64, i8, u16, u32, u64, u8 } from "../types.ts";
 
-export class BlitMap implements Struct {}
-export class PixelFormat implements Struct {}
-export class Renderer implements Struct {}
-export class RWops implements Struct {}
-export class Texture implements Struct {}
-export class Window implements Struct {}
+export class BlitMap implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+
+export class PixelFormat implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+
+export class Renderer implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+
+export class RWops implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+
+export class Texture implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
+
+export class Window implements Struct {
+  public static SIZE_IN_BYTES = Pointer.SIZE_IN_BYTES;
+}
 
 export class Keysym implements Struct {
   public static SIZE_IN_BYTES = 16;

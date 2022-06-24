@@ -1,4 +1,7 @@
-import { Pointer, Struct } from "./types.ts";
+import { Pointer } from "./pointer.ts";
+
+// deno-lint-ignore no-empty-interface
+export interface Struct {}
 
 export interface StructInternal<T extends Struct> {
   _data: Uint8Array | Pointer<T>;

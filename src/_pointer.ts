@@ -1,6 +1,5 @@
-import { PlatformDataView, PlatformPointer } from "platform";
+import { PlatformPointer } from "platform";
 import { Pointer } from "./pointer.ts";
-import { DATA_VIEW_METHODS, sizeof } from "./_utils.ts";
 
 export interface PointerInternal<T> extends Pointer<T> {
   readonly isPlatformPointer: boolean;
@@ -43,4 +42,3 @@ export class ArrayPointer<T> implements PointerInternal<T> {
     this._array[this._offset] = value;
   }
 }
-
